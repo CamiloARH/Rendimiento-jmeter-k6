@@ -1,0 +1,72 @@
+# Node.js dependencias
+node_modules/
+
+# Archivos de salida y empaquetados
+dist/
+build/
+
+# Archivos de logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Archivos de configuración del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuración del entorno local
+.env
+.env.local
+.env.*.local
+
+# Archivos de IDEs y editores
+.idea/
+.vscode/
+*.swp
+
+# Cachés
+.cache/
+.parcel-cache/
+.next/
+out/
+.svelte-kit/
+.eslintcache
+.stylelintcache
+coverage/
+logs/
+
+# Otros archivos temporales
+*.log
+*.tmp
+*.lock
+*.bak
+*.pid
+*.seed
+*.pid.lock
+
+# Configuración de pruebas
+jest-test-results.json
+coverage/
+
+# Configuración de herramientas de construcción
+*.tsbuildinfo
+
+# Archivos generados por npm/yarn/pnpm
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Archivos específicos de frameworks
+/.nuxt
+/.vercel
+/.firebase
+/functions/node_modules
+
+# Otros archivos binarios o empaquetados
+*.zip
+*.tar.gz
+
+# Archivos generados por el graficador de pruebas
+/stages_design/*.png
+/stages_design/*.html
