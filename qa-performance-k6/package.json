@@ -1,6 +1,16 @@
 {
   "type": "module",
   "dependencies": {
-    "puppeteer": "^23.10.4"
-  }
+    "puppeteer": "^23.11.1"
+  },
+  "name": "qa-performance-k6",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">\r   <br>\r   <a href=\"http://www.amitmerchant.com/electron-markdownify\"><img src=\"https://f.hubspotusercontent20.net/hubfs/2829524/Copia%20de%20LOGOTIPO_original-2.png\"></a>\r   <br>\r   Arquetipo proyecto base K6 javascript y graficador de Stages\r   <br>\r </h1>",
+  "main": "reqres_get.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

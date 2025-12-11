@@ -1,4 +1,0 @@
-# JMeter generated Header file
-Cookie	token=${miToken}
-Accept	application/json
-Content-Type	application/json
