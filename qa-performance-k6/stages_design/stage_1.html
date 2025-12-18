@@ -8,7 +8,7 @@
         <body style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; padding: 0; height: 100vh;">
             <div id="chart" style="width:1000px;height:600px; display: flex; flex-direction: column; align-items: center;"></div>
             <script>
-                const data = [{"x":[0,20,40,60,110,130,150,170],"y":[0,10,10,70,70,10,10,0],"type":"scatter","mode":"lines+markers","line":{"color":"rgb(122, 3, 190)","width":2},"name":"My Data"}];
+                const data = [{"x":[0,20,40,60,110,130,150,170],"y":[0,10,10,30,30,10,10,0],"type":"scatter","mode":"lines+markers","line":{"color":"rgb(122, 3, 190)","width":2},"name":"My Data"}];
                 const layout = {"title":"Pruebas de carga","xaxis":{"title":"Segundos"},"yaxis":{"title":"Peticiones por segundo"}};
                 Plotly.newPlot('chart', data, layout);
             </script>
@@ -20,7 +20,7 @@
                                 <div style="text-align: center;">Peticiones totales</div>
                             </td>
                             <td style="width: 50%; border: double rgb(0, 0, 0);">
-                                <div style="text-align: center;">5700</div>
+                                <div style="text-align: center;">2900</div>
                             </td>
                         </tr>
                         <tr>

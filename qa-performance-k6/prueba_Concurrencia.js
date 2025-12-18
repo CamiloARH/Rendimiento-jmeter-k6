@@ -1,17 +1,30 @@
 import http from 'k6/http';
-import {sleep, check} from 'k6';
-import {stagesConcurrencia} from './stages.js';
+import { sleep, check } from 'k6';
+import { SharedArray } from 'k6/data';
+import { stagesConcurrencia } from './stages.js';
 
-export const options={
+const datosCsv = new SharedArray('datos_usuarios', function () {
+  const fileContent = open('C:/Estudio/GeneradorArchivos/datos_update.csv');
+
+  return fileContent.split('\n').slice(1).map((line) => {
+      if (line.trim() === '') return null;
+      const parts = line.split(',');
+      return {
+          firstname: parts[0],
+          lastname: parts[1]
+      };
+  }).filter(item => item !== null);
+});
+
+export const options = {
     stages: stagesConcurrencia,
-
     thresholds: {
-        http_req_duration: ['p(95)<500'], // El 95% de las peticiones deben ser mas rápidas que 500ms
-        http_req_failed: ['rate<0.01'],   // Menos del 1% de errores permitidos
+        http_req_duration: ['p(95)<500'],
+        http_req_failed: ['rate<0.01'],
   },
 };
 
-export function setup(){
+export function setup() {
     const url = 'https://restful-booker.herokuapp.com/auth';
     const payload = JSON.stringify({
         username: 'admin',
@@ -26,23 +39,21 @@ export function setup(){
     let response = http.post(url, payload, params)
     if (response.status !== 200) {
         throw new Error('Error en el Login del Setup');
-      }
+    }
 
-      const token = response.json().token;
-      console.log("/////////////////////////////////////////////////");
-      console.log(`Token de autenticación obtenido: ${token}`);
-      console.log("/////////////////////////////////////////////////");
+    const token = response.json().token;
 
-      return { authToken: token };
+    return { authToken: token };
 }
 
 export default function (data) {
+  const usuarioActual = datosCsv[__ITER % datosCsv.length];
 
-  let urlPatch = 'https://restful-booker.herokuapp.com/booking/1';
+  let urlPatch = 'https://restful-booker.herokuapp.com/booking/2';
 
   const payload = JSON.stringify({
-        firstname : "James007",
-        lastname : "Bond"
+        firstname : usuarioActual.firstname,
+        lastname : usuarioActual.lastname
     });
 
   const params = {
@@ -61,3 +72,4 @@ export default function (data) {
 
   sleep(1);
 }
+//http://127.0.0.1:5665

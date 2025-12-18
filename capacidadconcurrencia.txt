@@ -1,0 +1,45 @@
+capacidad/concurrencia
+carga
+estrés
+pico
+aguante/desempeño
+smoketest
+
+Como evaluar otros tipos de rendimientos, (BD, equipos, servidores)
+
+-http_req_duration (La más crítica): Es el tiempo total que tomó la solicitud completa.$$Duration = Sending + Waiting + Receiving$$
+
+-http_req_waiting (TTFB): Tiempo hasta el primer byte. Mide cuánto tardó el servidor en pensar y procesar. Si este número es alto, tu backend (base de datos, código) es lento.
+
+-http_req_blocked: Tiempo que el usuario virtual esperó antes de poder iniciar la solicitud (generalmente por límites de conexiones TCP en tu máquina
+local). Si es alto, el cuello de botella puede estar en la máquina que ejecuta el test, no en el servidor.
+
+-http_req_connecting: Tiempo para establecer la conexión TCP.
+
+-http_req_receiving: Tiempo descargando la respuesta. Si es alto, estás enviando archivos muy grandes (JSON gigantes o imágenes).
+
+-http_reqs: Muestra dos números: el total de peticiones hechas (ej. 500) y las Peticiones por Segundo (RPS) (ej. 16.6/s). Este es tu Throughput.
+
+-data_received / data_sent: Ancho de banda consumido. Importante para saber si saturaste la red.
+
+-vus: Usuarios virtuales activos actuales.
+
+-iterations: Cuántas veces se ejecutó la función default completa.
+
+-http_req_failed: El porcentaje de peticiones que no devolvieron un código 200-299. Lo ideal es 0.00%.
+
+Ojo: Si tienes un 10% de fallos y una latencia bajísima, cuidado. A veces los servidores devuelven un "Error 500" instantáneamente, lo que baja falsamente tu promedio de latencia.
+
+-checks: Si escribiste validaciones en tu código (ej. check(res, { 'status is 200': (r) => r.status === 200 })), aquí verás qué porcentaje pasó (✓) o falló (✗).
+
+Usa esta tabla para saber dónde está el problema según qué métrica esté alta:
+
+-Métrica Alta (p95)Posible Causa
+
+-http_req_waitingEl servidor es lento procesando (Base de datos lenta, CPU del servidor al 100%, código ineficiente).
+
+-http_req_receivingLa respuesta es muy pesada (JSONs de megabytes) o el ancho de banda está saturado.
+
+-http_req_blockedTu máquina de pruebas no da abasto. Reduce los VUs o usa una máquina más potente para testear.
+
+-http_req_connectingLatencia de red alta o problemas estableciendo handshake SSL/TLS.
